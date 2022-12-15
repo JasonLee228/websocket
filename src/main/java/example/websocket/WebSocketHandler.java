@@ -1,9 +1,13 @@
 package example.websocket;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.*;
-import jakarta.websocket.server.ServerEndpoint;
+//import jakarta.servlet.http.HttpServletRequest; // java-17, spring 2.7.x
+//import jakarta.servlet.http.HttpSession;
+//import jakarta.websocket.*;
+//import jakarta.websocket.server.ServerEndpoint;
+import javax.servlet.http.HttpServletRequest; // java-11, spring 3.0
+import javax.servlet.http.HttpSession;
+import javax.websocket.*;
+import javax.websocket.server.ServerEndpoint;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,7 +16,7 @@ import java.util.*;
 /**
  * @ServerEndpoint, @Service > WebSocketChatting 클래스를 서비스(WebSocket)로 등록합니다.
  */
-@ServerEndpoint(value = "/", configurator = WebSocketSessionConfigurator.class)// "/websocket" / "/"
+@ServerEndpoint(value = "/websocket", configurator = WebSocketSessionConfigurator.class)// "/websocket" / "/"
 @Service
 public class WebSocketHandler {
     private static Set<Session> CLIENTS = Collections.synchronizedSet(new HashSet<>());
@@ -72,6 +76,11 @@ public class WebSocketHandler {
             if(!Objects.equals(session.getId(), client.getId())) {
                 System.out.println("[알림] Session Id : " + client.getId() + " 에게 메세지를 전달합니다. > " + message);
                 client.getBasicRemote().sendText(sessionId + " 의 메시지 : " + message);
+            }
+
+            // 명령어 이벤트 전달 테스트트
+           if(message.equals("a")) {
+                client.getBasicRemote().sendText(message);
             }
 
         }
