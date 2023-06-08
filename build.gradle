@@ -30,6 +30,17 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
+    // https://mvnrepository.com/artifact/org.webjars/stomp-websocket
+    implementation 'org.webjars:stomp-websocket:2.3.4'
+
+
+    // rabbitmq
+    // https://mvnrepository.com/artifact/org.springframework.amqp/spring-rabbit
+    implementation 'org.springframework.amqp:spring-rabbit:3.0.2'
+
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter-reactor-netty'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
 }
